@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom'
+import firebase from './../../Firebase/Config';
 
 
 const styles = theme => ({
@@ -76,7 +77,21 @@ class Register extends React.Component{
 
 
   register = ()=>{
+    const {userEmail , userPassword, userName, userNumber} = this.state;
     if(this.isFormValid(this.state)){
+      firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((user)=>{
+        if(!user){
+          
+        }
+        return user.updateProfile({
+          displayName: userName
+        })
+      })
+      .catch((err)=>{
+
+      });
+
+
 
     }
 
